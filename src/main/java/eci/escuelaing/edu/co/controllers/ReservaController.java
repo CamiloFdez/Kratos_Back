@@ -39,7 +39,7 @@ public class ReservaController {
 
     @PutMapping("/{fechaHora}")
     public ResponseEntity<Reserva> updateReserva(@PathVariable LocalDateTime fechaHora,
-                                                @RequestBody Reserva reserva) {
+                                                 @RequestBody Reserva reserva) {
         try {
             Reserva updatedReserva = reservaService.UpdateReserva(fechaHora, reserva);
             return ResponseEntity.ok(updatedReserva);
