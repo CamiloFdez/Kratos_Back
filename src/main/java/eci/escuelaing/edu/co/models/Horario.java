@@ -3,22 +3,18 @@ package eci.escuelaing.edu.co.models;
 import org.springframework.data.annotation.Id;  // Para usar la anotación @Id en el campo de identificación
 import org.springframework.data.mongodb.core.mapping.Document;  // Para mapear la clase a una colección de MongoDB
 
-@Document(collection = "horarios")  // Define la colección en la que se almacenarán los horarios
+@Document(collection = "horarios")
 public class Horario {
 
     @Id
-    private String id;  // El ID del horario (autogenerado por MongoDB)
+    private String id;
 
-    private String labId;  // El ID del laboratorio al que pertenece este horario
-    private String dia;  // El día de la semana (por ejemplo, Lunes, Martes, etc.)
-    private String horaInicio;  // La hora de inicio del horario (por ejemplo, "08:00")
-    private String horaFin;  // La hora de fin del horario (por ejemplo, "10:00")
-    private boolean disponible;  // Indica si el horario está disponible para ser reservado (true/false)
+    private String labId;
+    private String dia;
+    private String horaInicio;
+    private String horaFin;
+    private boolean disponible;
 
-    // Constructor vacío (requerido por MongoDB y Spring Data)
-    public Horario() {}
-
-    // Constructor con parámetros
     public Horario(String labId, String dia, String horaInicio, String horaFin, boolean disponible) {
         this.labId = labId;
         this.dia = dia;
@@ -27,7 +23,6 @@ public class Horario {
         this.disponible = disponible;
     }
 
-    // Getters y Setters
     public String getId() {
         return id;
     }

@@ -18,35 +18,29 @@ public class HorarioService {
         this.horarioRepository = horarioRepository;
     }
 
-    // Obtener todos los horarios
     public List<Horario> getAllHorarios() {
         return horarioRepository.findAll();
     }
 
-    // Obtener horarios por el id del laboratorio
     public List<Horario> getHorariosByLabId(String labId) {
         return horarioRepository.findByLabId(labId);  // Llama al repositorio para obtener los horarios del laboratorio
     }
 
-    // Obtener un horario específico por su id
     public Optional<Horario> getHorarioById(String horarioId) {
         return horarioRepository.findById(horarioId);
     }
 
-    // Guardar o actualizar un horario
     public Horario saveOrUpdateHorario(Horario horario) {
-        return horarioRepository.save(horario);  // Guarda o actualiza un horario en la base de datos
+        return horarioRepository.save(horario);
     }
 
-    // Eliminar un horario por id
     public void deleteHorario(String horarioId) {
-        horarioRepository.deleteById(horarioId);  // Elimina el horario por su id
+        horarioRepository.deleteById(horarioId);
     }
 
-    // Actualizar la disponibilidad de un horario (para manejar las reservas)
     public Horario actualizarDisponibilidad(Horario horario, boolean disponibilidad) {
-        horario.setDisponible(disponibilidad);  // Actualiza la disponibilidad
-        return horarioRepository.save(horario);  // Guarda el horario actualizado
+        horario.setDisponible(disponibilidad);
+        return horarioRepository.save(horario);
     }
 
     public Horario updateHorario(String labId, Horario horario) {

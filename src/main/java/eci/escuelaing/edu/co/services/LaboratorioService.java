@@ -37,22 +37,22 @@ public class LaboratorioService {
         return laboratorioRepository.save(laboratorio);
     }
 
-    // Eliminar un laboratorio por id
-    public void deleteLaboratorio(String labId) {
-        laboratorioRepository.deleteById(labId);
+    public void deleteLaboratorio(String id) {
+        Optional<Laboratorio> lab = laboratorioRepository.findById(id);
+        if (lab.isEmpty()) {
+            throw new IllegalArgumentException("Laboratorio no encontrado");
+        }
+        laboratorioRepository.deleteById(id);
     }
 
-    // Obtener los horarios disponibles para un laboratorio específico
     public List<Horario> obtenerHorariosDisponibles(String laboratorioId) {
-        // Verifica si el laboratorio existe
         Optional<Laboratorio> laboratorio = laboratorioRepository.findById(laboratorioId);
 
-        if (laboratorio.isPresent()) {
-            // Si el laboratorio existe, obtenemos los horarios disponibles a través del servicio HorarioService
-            return horarioService.getHorariosByLabId(laboratorioId);  // Obtiene los horarios de este laboratorio
-        } else {
-            // Si el laboratorio no existe, puedes devolver una lista vacía o manejar el error de alguna otra manera
-            return List.of();  // Retorna una lista vacía si no se encuentra el laboratorio
+        if (laboratorio.isEmpty()) {
+            throw new IllegalArgumentException("No se encontró el laboratorio con ID " + laboratorioId);
         }
+
+        return horarioService.getHorariosByLabId(laboratorioId);
     }
+
 }
