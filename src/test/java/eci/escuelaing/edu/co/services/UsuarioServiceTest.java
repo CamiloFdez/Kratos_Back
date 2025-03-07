@@ -84,4 +84,37 @@ public class UsuarioServiceTest {
         assertThrows(IllegalArgumentException.class, () -> usuarioService.CreateUser(user));
         verify(usuarioRepository, times(1)).findByEmail("ana@mail.com");
     }
+
+    @Test
+    void shouldUpdateUser() {
+        Usuario existingUser = new Usuario("1", "Juan", "juan@mail.com", "1234");
+        Usuario updatedUser = new Usuario("1", "Juan Updated", "juan.updated@mail.com", "5678");
+        when(usuarioRepository.findById("1")).thenReturn(Optional.of(existingUser));
+        when(usuarioRepository.save(any(Usuario.class))).thenReturn(updatedUser);
+
+        var result = usuarioService.UpdateUser("1", updatedUser);
+
+        assertNotNull(result);
+        assertEquals("Juan Updated", result.getName());
+        assertEquals("juan.updated@mail.com", result.getEmail());
+        verify(usuarioRepository, times(1)).findById("1");
+        verify(usuarioRepository, times(1)).save(existingUser);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingNonexistentUser() {
+        Usuario updatedUser = new Usuario("1", "Juan Updated", "juan.updated@mail.com", "5678");
+        when(usuarioRepository.findById("1")).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> usuarioService.UpdateUser("1", updatedUser));
+        verify(usuarioRepository, times(1)).findById("1");
+    }
+
+    @Test
+    void shouldDeleteUser() {
+        doNothing().when(usuarioRepository).deleteById("1");
+
+        assertDoesNotThrow(() -> usuarioService.DeleteUser("1"));
+        verify(usuarioRepository, times(1)).deleteById("1");
+    }
 }
