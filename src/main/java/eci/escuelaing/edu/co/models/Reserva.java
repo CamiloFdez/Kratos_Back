@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 
 @Document(collection = "reservas")
 public class Reserva {
+
     @Id
     private String id;
+
     private String usuarioId;
     private String laboratorio; // Implementar clase 'laboratorio'
     private LocalDateTime fechaHora;
     private String proposito;
-
-    public Reserva() {}
 
     public Reserva(String id, String usuarioId, String laboratorio, LocalDateTime fechaHora, String proposito) {
         this.id = id;

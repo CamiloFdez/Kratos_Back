@@ -71,6 +71,28 @@ public class HorarioServiceTest {
     }
 
     @Test
+    void shouldUpdateHorarioAvailability() {
+        Horario h = new Horario("lab1", "Viernes", "18:00", "20:00", false);
+        when(horarioRepository.save(h)).thenReturn(h);
+        Horario updated = horarioService.actualizarDisponibilidad(h, true);
+        assertTrue(updated.isDisponible());
+        verify(horarioRepository, times(1)).save(h);
+    }
+
+    @Test
+    void shouldSaveOrUpdateHorario() {
+        Horario horario = new Horario("lab1", "Lunes", "08:30", "10:00", true);
+
+        when(horarioRepository.save(horario)).thenReturn(horario);
+
+        Horario result = horarioService.saveOrUpdateHorario(horario);
+
+        assertNotNull(result);
+        assertEquals("Lunes", result.getDia());
+        verify(horarioRepository, times(1)).save(horario);
+    }
+
+    @Test
     void shouldDeleteHorario() {
         String horarioId = "1";
         when(horarioRepository.existsById(horarioId)).thenReturn(true);
@@ -80,12 +102,39 @@ public class HorarioServiceTest {
     }
 
     @Test
-    void shouldUpdateHorarioAvailability() {
-        Horario h = new Horario("lab1", "Viernes", "18:00", "20:00", false);
-        when(horarioRepository.save(h)).thenReturn(h);
-        Horario updated = horarioService.actualizarDisponibilidad(h, true);
-        assertTrue(updated.isDisponible());
-        verify(horarioRepository, times(1)).save(h);
+    void shouldUpdateDisponibilidad() {
+        Horario horario = new Horario("lab1", "Lunes", "08:30", "10:00", true);
+        horario.setId("h1");
+
+        when(horarioRepository.save(any(Horario.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Horario result = horarioService.actualizarDisponibilidad(horario, false);
+
+        assertFalse(result.isDisponible());
+        verify(horarioRepository, times(1)).save(horario);
+    }
+
+    @Test
+    void shouldUpdateHorarioSuccessfully() {
+        String labId = "lab1";
+        Horario existingHorario = new Horario(labId, "Lunes", "08:30", "10:00", true);
+        existingHorario.setId("h1");
+
+        Horario updatedHorario = new Horario(labId, "Martes", "10:00", "11:30", false);
+        updatedHorario.setId("h1");
+
+        when(horarioRepository.findByLabId(labId)).thenReturn(Arrays.asList(existingHorario));
+        when(horarioRepository.save(any(Horario.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Horario result = horarioService.updateHorario(labId, updatedHorario);
+
+        assertEquals("Martes", result.getDia());
+        assertEquals("10:00", result.getHoraInicio());
+        assertEquals("11:30", result.getHoraFin());
+        assertFalse(result.isDisponible());
+
+        verify(horarioRepository, times(1)).findByLabId(labId);
+        verify(horarioRepository, times(1)).save(existingHorario);
     }
 }
 

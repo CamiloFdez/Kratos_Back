@@ -1,38 +1,34 @@
 package eci.escuelaing.edu.co.services;
 
-import eci.escuelaing.edu.co.models.Laboratorio;  // Importa la clase de modelo Laboratorio
-import eci.escuelaing.edu.co.models.Horario;  // Importa la clase de modelo Horario
-import eci.escuelaing.edu.co.repositories.LaboratorioRepository;  // Importa el repositorio de laboratorios
-import eci.escuelaing.edu.co.services.HorarioService;  // Importa el servicio de Horario
-import org.springframework.beans.factory.annotation.Autowired;  // Para la inyección de dependencias
-import org.springframework.stereotype.Service;  // Para marcar la clase como un servicio
+import eci.escuelaing.edu.co.models.Laboratorio;
+import eci.escuelaing.edu.co.models.Horario;
+import eci.escuelaing.edu.co.repositories.LaboratorioRepository;
+import eci.escuelaing.edu.co.services.HorarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;  // Para manejar listas de laboratorios
-import java.util.Optional;  // Para manejar valores opcionales
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LaboratorioService {
 
     private final LaboratorioRepository laboratorioRepository;
-    private final HorarioService horarioService;  // Inyecta el servicio de Horario
-
+    private final HorarioService horarioService;
     @Autowired
     public LaboratorioService(LaboratorioRepository laboratorioRepository, HorarioService horarioService) {
         this.laboratorioRepository = laboratorioRepository;
         this.horarioService = horarioService;
     }
 
-    // Obtener todos los laboratorios
     public List<Laboratorio> getAllLaboratorios() {
         return laboratorioRepository.findAll();
     }
 
-    // Obtener un laboratorio por su id
     public Optional<Laboratorio> getLaboratorioById(String labId) {
         return laboratorioRepository.findById(labId);
     }
 
-    // Crear o actualizar un laboratorio
     public Laboratorio saveOrUpdateLaboratorio(Laboratorio laboratorio) {
         return laboratorioRepository.save(laboratorio);
     }
