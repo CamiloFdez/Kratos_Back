@@ -84,4 +84,35 @@ public class UsuarioServiceTest {
         assertThrows(IllegalArgumentException.class, () -> usuarioService.CreateUser(user));
         verify(usuarioRepository, times(1)).findByEmail("ana@mail.com");
     }
+
+    @Test
+    void shouldDeleteUserSuccessfully() {
+        String userId = "user1";
+
+        doNothing().when(usuarioRepository).deleteById(userId);
+
+        usuarioService.DeleteUser(userId);
+
+        verify(usuarioRepository, times(1)).deleteById(userId);
+    }
+
+    @Test
+    void shouldUpdateUserSuccessfully() {
+        String userId = "user1";
+        Usuario existingUser = new Usuario(userId, "John Duran", "john@mail.escuelaing.edu.co", "1234");
+        Usuario updatedUser = new Usuario(userId, "John Smith", "johnsmith@mail.escuelaing.edu.co", "abcd");
+
+        when(usuarioRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(usuarioRepository.save(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Usuario result = usuarioService.UpdateUser(userId, updatedUser);
+
+        assertNotNull(result);
+        assertEquals("John Smith", result.getName());
+        assertEquals("johnsmith@mail.escuelaing.edu.co", result.getEmail());
+        assertEquals("abcd", result.getPassword());
+
+        verify(usuarioRepository, times(1)).findById(userId);
+        verify(usuarioRepository, times(1)).save(existingUser);
+    }
 }
