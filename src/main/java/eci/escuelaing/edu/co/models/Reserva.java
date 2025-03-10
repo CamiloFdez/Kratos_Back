@@ -14,15 +14,21 @@ public class Reserva {
     private String laboratorio; // Implementar clase 'laboratorio'
     private LocalDateTime fechaHora;
     private String proposito;
+    private int prioridad; // Campo de prioridad
 
-    public Reserva(String id, String usuarioId, String laboratorio, LocalDateTime fechaHora, String proposito) {
+
+    public Reserva() {}
+
+    public Reserva(String id, String usuarioId, String laboratorio, LocalDateTime fechaHora, String proposito, int prioridad) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.laboratorio = laboratorio;
         this.fechaHora = fechaHora;
         this.proposito = proposito;
+        setPrioridad(prioridad);
     }
 
+    // Getters y setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -37,4 +43,14 @@ public class Reserva {
 
     public String getProposito() { return proposito; }
     public void setProposito(String proposito) { this.proposito = proposito; }
+
+    public int getPrioridad() { return prioridad; }
+
+    public void setPrioridad(int prioridad) {
+        if (prioridad >= 1 && prioridad <= 5) {
+            this.prioridad = prioridad;
+        } else {
+            throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5.");
+        }
+    }
 }

@@ -29,8 +29,8 @@ public class ReservaServiceTest {
     @Test
     void shouldReturnAllReservas() {
         // Arrange
-        Reserva reserva1 = new Reserva("1", "1", "Lab1", null, "Practica 1");
-        Reserva reserva2 = new Reserva("2", "2", "Lab2", null, "Practica 2");
+        Reserva reserva1 = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
+        Reserva reserva2 = new Reserva("2", "2", "Lab2", null, "Practica 2", 5);
         when(reservaRepository.findAll()).thenReturn(Arrays.asList(reserva1, reserva2));
 
         // Act
@@ -44,7 +44,7 @@ public class ReservaServiceTest {
     @Test
     void shouldReturnReservaById() {
         // Arrange
-        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1");
+        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
         when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.of(reserva));
 
         // Act
@@ -59,7 +59,7 @@ public class ReservaServiceTest {
     @Test
     void shouldCreateReserva() {
         // Arrange
-        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1");
+        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
         when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.empty());
         when(reservaRepository.save(reserva)).thenReturn(reserva);
 
@@ -75,8 +75,8 @@ public class ReservaServiceTest {
     @Test
     void shouldUpdateReserva() {
         // Arrange
-        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1");
-        Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2");
+        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1",1);
+        Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2", 5);
         when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.of(reserva));
         when(reservaRepository.save(reserva)).thenReturn(reserva);
 
@@ -94,7 +94,7 @@ public class ReservaServiceTest {
     @Test
     void shouldThrowExceptionWhenReservaNotFound() {
         // Arrange
-        Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2");
+        Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2", 5);
         when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.empty());
 
         // Act & Assert
@@ -105,7 +105,7 @@ public class ReservaServiceTest {
     @Test
     void shouldDeleteReserva() {
         // Arrange
-        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1");
+        Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
 
         // Act
         reservaService.DeleteReserva(null);
