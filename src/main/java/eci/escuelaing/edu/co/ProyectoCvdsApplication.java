@@ -61,7 +61,7 @@ public class ProyectoCvdsApplication implements CommandLineRunner {
 		horarioRepository.save(horario2);
 		Usuario usuario = new Usuario("user1", "Juan Pérez", "juan@example.com", "password123");
 		usuarioRepository.save(usuario);
-		Reserva reserva = new Reserva("reserva1", "user1", "lab1", LocalDateTime.now(), "Clase de Física");
+		Reserva reserva = new Reserva("reserva1", "user1", "lab1", LocalDateTime.now(), "Clase de Física", 1);
 		reservaRepository.save(reserva);
 		System.out.println("Datos iniciales creados correctamente.");
 	}
