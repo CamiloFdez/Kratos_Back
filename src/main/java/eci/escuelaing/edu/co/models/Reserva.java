@@ -6,13 +6,16 @@ import java.time.LocalDateTime;
 
 @Document(collection = "reservas")
 public class Reserva {
+
     @Id
     private String id;
+
     private String usuarioId;
     private String laboratorio; // Implementar clase 'laboratorio'
     private LocalDateTime fechaHora;
     private String proposito;
     private int prioridad; // Campo de prioridad
+
 
     public Reserva() {}
 
