@@ -53,6 +53,9 @@ jobs:
         with:
           name: SpringBoot Report               # Name of the folder
           path: target/site/serenity/           # Path to test results
+      - name: Generar Reporte de Serenity
+        run: mvn serenity:aggregate
+
 
 
   deploy:
