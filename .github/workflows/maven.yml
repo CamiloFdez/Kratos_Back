@@ -48,7 +48,7 @@ jobs:
         run: mvn verify
         
       - name: Test Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: SpringBoot Report               # Name of the folder
