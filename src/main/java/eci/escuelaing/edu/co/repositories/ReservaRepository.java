@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface ReservaRepository extends MongoRepository <Reserva, LocalDateTime> {
     Optional<Reserva> findByIdFechaHora(LocalDateTime fechaHora);
+
+
+    Optional<Reserva> findById(String number);
 }

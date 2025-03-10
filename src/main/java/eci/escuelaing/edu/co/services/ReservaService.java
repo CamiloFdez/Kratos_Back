@@ -1,4 +1,5 @@
 package eci.escuelaing.edu.co.services;
+
 import eci.escuelaing.edu.co.models.Reserva;
 import eci.escuelaing.edu.co.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,33 @@ public class ReservaService {
     }
 
     public Reserva CreateReserva(Reserva reserva) {
-        if (reservaRepository.findByIdFechaHora(reserva.getFechaHora()).isPresent()) {
-            throw new IllegalArgumentException("The date " + reserva.getFechaHora() +
-                    " already exists");
+        if (reserva.getPrioridad() < 1 || reserva.getPrioridad() > 5) {
+            throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5.");
         }
+
+        if (reservaRepository.findByIdFechaHora(reserva.getFechaHora()).isPresent()) {
+            throw new IllegalArgumentException("The date " + reserva.getFechaHora() + " already exists");
+        }
+
         return reservaRepository.save(reserva);
     }
 
     public Reserva UpdateReserva(LocalDateTime fechaHora, Reserva reservaActualizada) {
+        if (reservaActualizada.getPrioridad() < 1 || reservaActualizada.getPrioridad() > 5) {
+            throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5.");
+        }
+
         return reservaRepository.findByIdFechaHora(fechaHora).map(reserva -> {
             reserva.setUsuarioId(reservaActualizada.getUsuarioId());
             reserva.setLaboratorio(reservaActualizada.getLaboratorio());
             reserva.setFechaHora(reservaActualizada.getFechaHora());
             reserva.setProposito(reservaActualizada.getProposito());
+            reserva.setPrioridad(reservaActualizada.getPrioridad()); // Actualiza la prioridad
             return reservaRepository.save(reserva);
         }).orElseThrow(() -> new IllegalArgumentException("Reserva not found"));
     }
 
-    public void DeleteReserva(LocalDateTime fechaHora) { reservaRepository.deleteById(fechaHora); }
+    public void DeleteReserva(LocalDateTime fechaHora) {
+        reservaRepository.deleteById(fechaHora);
+    }
 }

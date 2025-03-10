@@ -18,18 +18,26 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-    public List<Reserva> listReservas() { return reservaService.ObtainAllReservas(); }
+    public List<Reserva> listReservas() {
+        return reservaService.ObtainAllReservas();
+    }
 
     @GetMapping("/{fechaHora}")
     public ResponseEntity<Reserva> obtainReservaById(@PathVariable LocalDateTime fechaHora) {
         Optional<Reserva> reserva = reservaService.ObtainReservaById(fechaHora);
-        return reserva.map(ResponseEntity::ok).orElseGet(()
-                -> ResponseEntity.notFound().build());
+        return reserva.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Reserva> addReserva(@RequestBody Reserva reserva) {
         try {
+            // Verifica la prioridad, si no es válida, lanza una excepción
+            if (reserva.getPrioridad() < 1 || reserva.getPrioridad() > 5) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(null);  // O podrías retornar un mensaje de error más específico
+            }
+
+            // Crea la reserva
             Reserva newReserva = reservaService.CreateReserva(reserva);
             return ResponseEntity.status(HttpStatus.CREATED).body(newReserva);
         } catch (IllegalArgumentException e) {
@@ -41,6 +49,13 @@ public class ReservaController {
     public ResponseEntity<Reserva> updateReserva(@PathVariable LocalDateTime fechaHora,
                                                  @RequestBody Reserva reserva) {
         try {
+            // Verifica la prioridad, si no es válida, lanza una excepción
+            if (reserva.getPrioridad() < 1 || reserva.getPrioridad() > 5) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(null);  // O podrías retornar un mensaje de error más específico
+            }
+
+            // Actualiza la reserva
             Reserva updatedReserva = reservaService.UpdateReserva(fechaHora, reserva);
             return ResponseEntity.ok(updatedReserva);
         } catch (IllegalArgumentException e) {
