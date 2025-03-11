@@ -45,7 +45,7 @@ public class ReservaServiceTest {
     void shouldReturnReservaById() {
         // Arrange
         Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
-        when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.of(reserva));
+        when(reservaRepository.findByFechaHora(null)).thenReturn(Optional.of(reserva));
 
         // Act
         var result = reservaService.ObtainReservaById(null);
@@ -53,14 +53,14 @@ public class ReservaServiceTest {
         // Assert
         assertTrue(result.isPresent());
         assertEquals("1", result.get().getUsuarioId());
-        verify(reservaRepository, times(1)).findByIdFechaHora(null);
+        verify(reservaRepository, times(1)).findByFechaHora(null);
     }
 
     @Test
     void shouldCreateReserva() {
         // Arrange
         Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1", 1);
-        when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.empty());
+        when(reservaRepository.findByFechaHora(null)).thenReturn(Optional.empty());
         when(reservaRepository.save(reserva)).thenReturn(reserva);
 
         // Act
@@ -68,7 +68,7 @@ public class ReservaServiceTest {
 
         // Assert
         assertEquals("1", result.getId());
-        verify(reservaRepository, times(1)).findByIdFechaHora(null);
+        verify(reservaRepository, times(1)).findByFechaHora(null);
         verify(reservaRepository, times(1)).save(reserva);
     }
 
@@ -77,7 +77,7 @@ public class ReservaServiceTest {
         // Arrange
         Reserva reserva = new Reserva("1", "1", "Lab1", null, "Practica 1",1);
         Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2", 5);
-        when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.of(reserva));
+        when(reservaRepository.findByFechaHora(null)).thenReturn(Optional.of(reserva));
         when(reservaRepository.save(reserva)).thenReturn(reserva);
 
         // Act
@@ -87,7 +87,7 @@ public class ReservaServiceTest {
         assertEquals("2", result.getUsuarioId());
         assertEquals("Lab2", result.getLaboratorio());
         assertEquals("Practica 2", result.getProposito());
-        verify(reservaRepository, times(1)).findByIdFechaHora(null);
+        verify(reservaRepository, times(1)).findByFechaHora(null);
         verify(reservaRepository, times(1)).save(reserva);
     }
 
@@ -95,11 +95,11 @@ public class ReservaServiceTest {
     void shouldThrowExceptionWhenReservaNotFound() {
         // Arrange
         Reserva reservaActualizada = new Reserva("1", "2", "Lab2", null, "Practica 2", 5);
-        when(reservaRepository.findByIdFechaHora(null)).thenReturn(Optional.empty());
+        when(reservaRepository.findByFechaHora(null)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> reservaService.UpdateReserva(null, reservaActualizada));
-        verify(reservaRepository, times(1)).findByIdFechaHora(null);
+        verify(reservaRepository, times(1)).findByFechaHora(null);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ReservaServiceTest {
         reservaService.DeleteReserva(null);
 
         // Assert
-        verify(reservaRepository, times(1)).deleteById(null);
+        verify(reservaRepository, times(1)).deleteByFechaHora(null);
     }
 
 }

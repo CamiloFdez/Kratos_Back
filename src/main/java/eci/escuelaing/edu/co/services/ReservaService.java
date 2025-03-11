@@ -18,7 +18,7 @@ public class ReservaService {
     }
 
     public Optional<Reserva> ObtainReservaById(LocalDateTime fechaHora) {
-        return reservaRepository.findByIdFechaHora(fechaHora);
+        return reservaRepository.findByFechaHora(fechaHora);
     }
 
     public Reserva CreateReserva(Reserva reserva) {
@@ -26,7 +26,7 @@ public class ReservaService {
             throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5.");
         }
 
-        if (reservaRepository.findByIdFechaHora(reserva.getFechaHora()).isPresent()) {
+        if (reservaRepository.findByFechaHora(reserva.getFechaHora()).isPresent()) {
             throw new IllegalArgumentException("The date " + reserva.getFechaHora() + " already exists");
         }
 
@@ -38,7 +38,7 @@ public class ReservaService {
             throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5.");
         }
 
-        return reservaRepository.findByIdFechaHora(fechaHora).map(reserva -> {
+        return reservaRepository.findByFechaHora(fechaHora).map(reserva -> {
             reserva.setUsuarioId(reservaActualizada.getUsuarioId());
             reserva.setLaboratorio(reservaActualizada.getLaboratorio());
             reserva.setFechaHora(reservaActualizada.getFechaHora());
@@ -49,6 +49,7 @@ public class ReservaService {
     }
 
     public void DeleteReserva(LocalDateTime fechaHora) {
-        reservaRepository.deleteById(fechaHora);
+        reservaRepository.deleteByFechaHora(fechaHora);
     }
+
 }
