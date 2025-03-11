@@ -2,6 +2,8 @@ package eci.escuelaing.edu.co.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.time.LocalDateTime;
 
 @Document(collection = "reservas")
@@ -12,12 +14,11 @@ public class Reserva {
 
     private String usuarioId;
     private String laboratorio; // Implementar clase 'laboratorio'
+
+    @Field
     private LocalDateTime fechaHora;
     private String proposito;
     private int prioridad; // Campo de prioridad
-
-
-    public Reserva() {}
 
     public Reserva(String id, String usuarioId, String laboratorio, LocalDateTime fechaHora, String proposito, int prioridad) {
         this.id = id;
