@@ -158,7 +158,7 @@ mvn test
 ---
 ## **Integrantes**
 
- - Andres Jocobo Sepulveda Sachez
+ - Andrés Jacobo Sepúlveda Sánchez
  - Sebastian Julian Villarraga Guerrero
  - Camilo Andrez Fernandez Diaz
  - Roger Alexander Rodriguez
