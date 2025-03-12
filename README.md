@@ -27,11 +27,11 @@ Para la ejecucion del proyecto necesitamos :
 
 Inicialmente se creo un proyecto nuevo con la ayuda de **Spring Initializr** de la siguiente forma:
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/master/assets/SpringInitialzr.png)
+![imagen](https://raw.githubusercontent.com/CamiloFdez/Kratos_Back/master/assets/SpringInitialzr.png)
 
 Luego configuramos la base de datos creando una cuenta en **Mongo Atlas** y creando una base de datos:
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/master/assets/MongoAtlas.png)
+![imagen](https://raw.githubusercontent.com/CamiloFdez/Kratos_Back/master/assets/MongoAtlas.png)
 
 Conectamos la base de datos con la aplicacion agragando la URI en las **application.properties** de nuestra aplicacion :
 
