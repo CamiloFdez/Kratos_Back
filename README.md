@@ -8,6 +8,7 @@ Esta desarrollada en **Spring Boot** y utiliza **MongoDB** como base de datos.
 1. [Requisitos](#requisitos)
 2. [Configuración](#configuración)
 4. [Estructura del Proyecto](#estructura-del-proyecto)
+5. [Ejecucion](#ejecucion)
 5. [Endpoints de la API](#endpoints-de-la-api)
 6. [Pruebas](#pruebas)
 7. [Integrantes](#integrantes)
@@ -17,188 +18,37 @@ Esta desarrollada en **Spring Boot** y utiliza **MongoDB** como base de datos.
 Para la ejecucion del proyecto necesitamos :
 
 - **Java 17** o superior.
-- **JaCoco**(Covertura)
 - **JUnit**(Test)
+- **Doker** 
+- **Sonar**
+- **AzureDevOps**
 - **MongoDB** instalado y en ejecución.
-- **Maven** .
+- **Maven** con **JaCoco**(Plugin Covertura) y **Mokito**(Dependencia)
 - Un IDE como **IntelliJ IDEA**, **Eclipse** o **VS Code** (En nuestro caso IntelliJ IDEA).
 ---
 ## **Configuracion**
 
 Inicialmente se creo un proyecto nuevo con la ayuda de **Spring Initializr** de la siguiente forma:
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/master/assets/SpringInitialzr.png)
+![imagen](https://raw.githubusercontent.com/CamiloFdez/Kratos_Back/master/assets/SpringInitialzr.png)
 
 Luego configuramos la base de datos creando una cuenta en **Mongo Atlas** y creando una base de datos:
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/master/assets/MongoAtlas.png)
+![imagen](https://raw.githubusercontent.com/CamiloFdez/Kratos_Back/master/assets/MongoAtlas.png)
 
 Conectamos la base de datos con la aplicacion agragando la URI en las **application.properties** de nuestra aplicacion :
 
 ```Spring
 spring.data.mongodb.uri=mongodb+srv://rogerrodriguez:Ro187ro.@proyectocvds.g9f0x.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=proyectoCVDS&ssl=true
 ```
+Instalamos las dependencias usando en la terminal  :
 
-Verficamos la estructura del **pom.xml** , en el cual se encuentran todas las dependencias:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>eci.escuelaing.edu.co</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>proyectoCVDS</name>
-	<description>Proyecto inicial de la materia CVDS</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-	<properties>
-		<java.version>17</java.version>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <sonar.projectKey>library</sonar.projectKey>
-        <sonar.projectName>library</sonar.projectName>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.coverage.exclusions>src//configurators/*</sonar.coverage.exclusions>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongodb-driver-sync</artifactId>
-			<version>5.2.1</version>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>5.14.2</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.12</version>
-				<executions>
-					<execution>
-						<id>default-prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<excludes>
-								<exclude>/configurators/</exclude>
-							</excludes>
-						</configuration>
-					</execution>
-					<execution>
-						<id>jacoco-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<excludes>
-								<exclude>**/*ProyectoCvdsApplication.class</exclude>
-							</excludes>
-							<rules>
-								<rule>
-									<element>PACKAGE</element>
-									<limits>
-										<limit>
-											<counter>CLASS</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum><!--Porcentaje mínimo de cubrimiento para construir el proyecto-->
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>4.0.0.4121</version>
-			</plugin>
-			<plugin>
-				<groupId>net.serenity-bdd.maven.plugins</groupId>
-				<artifactId>serenity-maven-plugin</artifactId>
-				<version>3.6.16</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>aggregate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-</project>
-
+```text
+./mvn clean Install
 ```
+
 ---
+
 ## **Estructura del proyecto**
 
 El proyecto esta organizado de la siguiente manera:
@@ -226,6 +76,16 @@ El proyecto esta organizado de la siguiente manera:
                     └── co
                         └── models            # Pruebas unitarias
 ```
+---
+## **Ejecucion**
+
+Para ejecutar la aplicacion con maven desde la terminal :
+```txt
+./mvnw spring-boot:run
+
+```
+Desde el IDE ejecutamos la clase **ProyectoCvdsApplication** .
+
 ---
 
 ## **EndPoints de la API**
@@ -287,7 +147,13 @@ DELETE /usuarios/{id}: Elimina un usuario.
 ---
 
 ## **Pruebas**
-El proyecto incluye pruebas para los modelos y servicios asi como algunos de los controladores asi esto no sea necesario:
+El proyecto incluye pruebas para los modelos y servicios asi como algunos de los controladores asi esto no sea necesario.
+
+Para la ejecucion de las puebas con maven desde la termianl usamos:
+
+```cmd
+mvn test 
+```
 
 ---
 ## **Integrantes**
