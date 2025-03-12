@@ -55,11 +55,11 @@ public class ProyectoCvdsApplication implements CommandLineRunner {
 	private void crearDatosIniciales() {
 		Laboratorio laboratorio = new Laboratorio("lab1", "Laboratorio de Física", "Edificio A", 30);
 		laboratorioRepository.save(laboratorio);
-		Horario horario1 = new Horario("lab1", "Lunes", "08:00", "10:00", true);
-		Horario horario2 = new Horario("lab1", "Martes", "10:00", "12:00", true);
+		Horario horario1 = new Horario("lab1", "Lunes", "08:30", "10:00", true);
+		Horario horario2 = new Horario("lab1", "Martes", "10:00", "11:30", true);
 		horarioRepository.save(horario1);
 		horarioRepository.save(horario2);
-		Usuario usuario = new Usuario("user1", "Juan Pérez", "juan@example.com", "password123");
+		Usuario usuario = new Usuario("user1", "Juan Pérez", "juan@mail.escuelaing.edu.co", "password123");
 		usuarioRepository.save(usuario);
 		Reserva reserva = new Reserva("reserva1", "user1", "lab1", LocalDateTime.now(), "Clase de Física", 1);
 		reservaRepository.save(reserva);
