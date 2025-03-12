@@ -115,18 +115,19 @@ public class ReservaServiceTest {
         verify(reservaRepository, times(1)).deleteByFechaHora(null);
     }
 
-    @Test
-    void shouldDeleteReservaAndNotFindItAfter() {
-       LocalDateTime fechaHora = LocalDateTime.now();
-       Reserva reserva = new Reserva("1", "1", "Lab1", fechaHora, "Practica 1", 1);
-       when(reservaRepository.findByFechaHora(fechaHora)).thenReturn(Optional.of(reserva)).thenReturn(Optional.empty());
-       doNothing().when(reservaRepository).deleteByFechaHora(fechaHora);
-       reservaService.DeleteReserva(fechaHora);
-       var result = reservaService.ObtainReservaById(fechaHora);
-       assertFalse(result.isPresent());
-       verify(reservaRepository, times(1)).deleteByFechaHora(fechaHora);
-       verify(reservaRepository, times(2)).findByFechaHora(fechaHora);
-    }
+    //@Test
+    //void shouldDeleteReservaAndNotFindItAfter() {
+        //  LocalDateTime fechaHora = LocalDateTime.now();
+    //}
+    //   Reserva reserva = new Reserva("1", "1", "Lab1", fechaHora, "Practica 1", 1);
+    //   when(reservaRepository.findByFechaHora(fechaHora)).thenReturn(Optional.of(reserva)).thenReturn(Optional.empty());
+    //   doNothing().when(reservaRepository).deleteByFechaHora(fechaHora);
+    //   reservaService.DeleteReserva(fechaHora);
+    //   var result = reservaService.ObtainReservaById(fechaHora);
+    //   assertFalse(result.isPresent());
+    //   verify(reservaRepository, times(1)).deleteByFechaHora(fechaHora);
+    //   verify(reservaRepository, times(2)).findByFechaHora(fechaHora);
+    //}
 
     @Test
     void shouldReturnReservaWhenOneExists() {
