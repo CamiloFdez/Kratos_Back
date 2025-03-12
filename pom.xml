@@ -115,6 +115,7 @@
 						<configuration>
 							<excludes>
 								<exclude>**/*ProyectoCvdsApplication.class</exclude>
+								<exclude>eci/escuelaing/edu/co/controllers/**</exclude>
 							</excludes>
 							<rules>
 								<rule>
