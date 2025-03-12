@@ -7,18 +7,23 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@SpringBootTest
 public class HorarioControllerTest {
 
     private MockMvc mockMvc;
@@ -85,19 +90,20 @@ public class HorarioControllerTest {
     }
 
     @Test
-    void shouldReturnNotFoundWhenUpdatingNonExistingHorario() throws Exception {
-        String labId = "lab3";
-        Horario horario = new Horario(labId, "Miércoles", "10:00", "12:00", true);
-        horario.setId("horarioX");
+void shouldReturnNotFoundWhenUpdatingNonExistingHorario() throws Exception {
+    String labId = "lab3";
+    Horario horario = new Horario(labId, "Miércoles", "10:00", "12:00", true);
+    horario.setId("horarioX");
 
-        when(horarioService.updateHorario(eq("horarioX"), any(Horario.class)))
-                .thenThrow(new RuntimeException("Horario con id horarioX no encontrado"));
+    when(horarioService.updateHorario(eq(labId), any(Horario.class)))
+            .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Horario con id horarioX no encontrado"));
 
-        mockMvc.perform(put("/api/horarios/{labId}", labId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":\"horarioX\",\"labId\":\"lab3\",\"dia\":\"Miércoles\",\"horaInicio\":\"10:00\",\"horaFin\":\"12:00\",\"disponible\":true}"))
-                .andExpect(status().isNotFound());
+    mockMvc.perform(put("/api/horarios/{labId}", labId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"id\":\"horarioX\",\"labId\":\"lab3\",\"dia\":\"Miércoles\",\"horaInicio\":\"10:00\",\"horaFin\":\"12:00\",\"disponible\":true}"))
+            .andExpect(status().isNotFound());
 
-        verify(horarioService, times(1)).updateHorario(eq(labId), any(Horario.class));
-    }
+    verify(horarioService, times(1)).updateHorario(eq(labId), any(Horario.class));
+}
+
 }
