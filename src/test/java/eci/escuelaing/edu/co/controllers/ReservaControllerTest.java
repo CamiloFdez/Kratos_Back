@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,5 +120,15 @@ class ReservaControllerTest {
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(reservaService, times(1)).DeleteReserva(fechaHora);
+    }
+
+    @Test
+    void testAddReserva_InvalidPrioridad() {
+        Reserva invalidReserva = new Reserva("R124", "U789", "Lab2", fechaHora, "Matemáticas", 6);
+        
+        ResponseEntity<Reserva> response = reservaController.addReserva(invalidReserva);
+        
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertNull(response.getBody());
     }
 }
