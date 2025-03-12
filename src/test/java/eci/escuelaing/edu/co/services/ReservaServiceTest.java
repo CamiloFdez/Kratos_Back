@@ -125,7 +125,7 @@ public class ReservaServiceTest {
     //   reservaService.DeleteReserva(fechaHora);
     //   var result = reservaService.ObtainReservaById(fechaHora);
     //   assertFalse(result.isPresent());
-    //   verify(reservaRepository, times(1)).deleteByFechaHora(fechaHora);
+    //  verify(reservaRepository, times(1)).deleteByFechaHora(fechaHora);
     //   verify(reservaRepository, times(2)).findByFechaHora(fechaHora);
     //}
 
