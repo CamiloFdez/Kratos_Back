@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -50,13 +52,15 @@ class UsuarioControllerTest {
 
     @Test
     void obtainUserById_ShouldReturnUser_WhenUserExists() throws Exception {
+        Usuario usuario = new Usuario("U123", "Juan Pérez", "juan@example.com", "password123"); 
         when(usuarioService.ObtainUserById("U123")).thenReturn(Optional.of(usuario));
 
         mockMvc.perform(get("/usuarios/U123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("U123"))
-                .andExpect(jsonPath("$.nombre").value("Juan Pérez"));
+                .andExpect(jsonPath("$.name").value("Juan Pérez")); 
     }
+
 
     @Test
     void obtainUserById_ShouldReturnNotFound_WhenUserDoesNotExist() throws Exception {

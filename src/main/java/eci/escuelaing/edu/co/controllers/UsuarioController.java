@@ -23,9 +23,10 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtainUserById(@PathVariable String id) {
         Optional<Usuario> usuario = usuarioService.ObtainUserById(id);
-        return usuario.map(ResponseEntity::ok).orElseGet(()
-                -> ResponseEntity.notFound().build());
+        return usuario.map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     // Crear nuevo usuario
     @PostMapping

@@ -33,7 +33,7 @@ class ReservaControllerTest {
     @BeforeEach
     void setUp() {
         fechaHora = LocalDateTime.of(2025, 3, 7, 14, 0);
-        reserva = new Reserva("R123", "U456", "Lab1", fechaHora, "Programación Avanzada");
+        reserva = new Reserva("R123", "U456", "Lab1", fechaHora, "Programación Avanzada", 2);
     }
 
 
