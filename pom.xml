@@ -104,6 +104,8 @@
 						<configuration>
 							<excludes>
 								<exclude>/configurators/</exclude>
+								<exclude>**/*ProyectoCvdsApplication.class</exclude>
+								<exclude>**/eci/escuelaing/edu/co/controllers/*</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -115,7 +117,7 @@
 						<configuration>
 							<excludes>
 								<exclude>**/*ProyectoCvdsApplication.class</exclude>
-								<exclude>eci/escuelaing/edu/co/controllers/**</exclude>
+								<exclude>**/eci/escuelaing/edu/co/controllers/**</exclude>
 							</excludes>
 							<rules>
 								<rule>
