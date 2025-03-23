@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,10 +95,15 @@ public class ReservaService {
         double promedioPrioridad = reservas.stream()
                 .collect(Collectors.averagingInt(Reserva::getPrioridad));
 
-        List<String> laboratoriosMasDemandados = reservasPorLaboratorio.entrySet().stream()
+        List<Map<String, Object>> laboratoriosMasDemandados = reservasPorLaboratorio.entrySet().stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .map(Map.Entry::getKey)
                 .limit(5)
+                .map(entry -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("nombre", entry.getKey());
+                    map.put("cantidad", entry.getValue());
+                    return map;
+                })
                 .collect(Collectors.toList());
 
         Map<String, Object> estadisticas = Map.of(
