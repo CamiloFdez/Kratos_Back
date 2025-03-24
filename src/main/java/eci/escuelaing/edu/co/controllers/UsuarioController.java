@@ -56,4 +56,16 @@ public class UsuarioController {
         usuarioService.DeleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{login}")
+    public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
+        Optional<Usuario> usuarioExistente = usuarioService.ObtainUserByEmail(usuario.getEmail());
+
+        if (usuarioExistente.isPresent() &&
+                usuarioExistente.get().getPassword().equals(usuario.getPassword())) {
+            return ResponseEntity.ok(usuarioExistente.get());
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
 }
