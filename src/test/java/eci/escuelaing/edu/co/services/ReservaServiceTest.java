@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -136,4 +137,34 @@ public class ReservaServiceTest {
         }
         verify(reservaRepository, times(1)).saveAll(anyList());
     }
+
+    @Test
+    void shouldReturnCorrectEstadisticasReservas() {
+        // Arrange: Crear datos de prueba
+        Reserva reserva1 = new Reserva("1", "1", laboratorio1, LocalDateTime.now().minusDays(1), "Practica 1", 3);
+        Reserva reserva2 = new Reserva("2", "2", laboratorio1, LocalDateTime.now(), "Practica 2", 5);
+        Reserva reserva3 = new Reserva("3", "3", laboratorio2, LocalDateTime.now(), "Practica 3", 2);
+        Reserva reserva4 = new Reserva("4", "4", laboratorio2, LocalDateTime.now().minusDays(1), "Practica 4", 4);
+        Reserva reserva5 = new Reserva("5", "5", laboratorio2, LocalDateTime.now().minusDays(2), "Practica 5", 1);
+        when(reservaRepository.findAll()).thenReturn(Arrays.asList(reserva1, reserva2, reserva3, reserva4, reserva5));
+        Map<String, Object> estadisticas = reservaService.obtenerEstadisticasReservas();
+        assertNotNull(estadisticas);
+        assertTrue(estadisticas.containsKey("histogramaReservas"));
+        assertTrue(estadisticas.containsKey("reservasPorLaboratorio"));
+        assertTrue(estadisticas.containsKey("promedioPrioridad"));
+        assertTrue(estadisticas.containsKey("laboratoriosMasDemandados"));
+        Map<String, Long> histogramaReservas = (Map<String, Long>) estadisticas.get("histogramaReservas");
+        assertEquals(3, histogramaReservas.size());
+        Map<String, Long> reservasPorLaboratorio = (Map<String, Long>) estadisticas.get("reservasPorLaboratorio");
+        assertEquals(2, reservasPorLaboratorio.size());
+        assertEquals(2, reservasPorLaboratorio.get(laboratorio1.getNombre()));
+        assertEquals(3, reservasPorLaboratorio.get(laboratorio2.getNombre()));
+        double promedioPrioridad = (double) estadisticas.get("promedioPrioridad");
+        assertEquals(3.0, promedioPrioridad, 0.01);
+        List<Map<String, Object>> laboratoriosMasDemandados = (List<Map<String, Object>>) estadisticas.get("laboratoriosMasDemandados");
+        assertEquals(2, laboratoriosMasDemandados.size());
+        assertEquals(laboratorio2.getNombre(), laboratoriosMasDemandados.get(0).get("nombre"));
+        assertEquals(3L, laboratoriosMasDemandados.get(0).get("cantidad"));
+    }
+
 }
