@@ -108,7 +108,7 @@ La API tiene los siguientes EndPoints :
 - POST /api/laboratorios/{labId}/cancelar: Cancela una reserva de un laboratorio. 
 ```
 
-### Hararios
+### Horarios
 
 ```
 GET /api/horarios/{labId}: Obtiene los horarios de un laboratorio.
@@ -130,7 +130,7 @@ PUT /api/horarios/{labId}: Actualiza un horario.
 - DELETE /reservas/{fechaHora}: Elimina una reserva.
 ```
 
-### Uusarios
+### Usuarios
 ```
 
 GET /usuarios: Obtiene todos los usuarios.
@@ -163,3 +163,40 @@ mvn test
  - Camilo Andrez Fernandez Diaz
  - Roger Alexander Rodriguez
 ---
+
+## **Fotos con endPoints**
+Primero debemos tener Postman instalado en nuestros dispositivos y luego debemos tener el proyecto corriendo en nuestra maquina local.
+Ahora procedemos a realizar las pruebas con los siguientes endPoints:
+Usuarios:
+- GET /usuarios
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariosget.png)
+- POST /usuarios
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariospost.png)
+- PUT /usuarios
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariosput.png)
+- DELETE /usuarios
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariosdelete.png)
+
+Laboratorios:
+- GET /api/laboratorios
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Labsget.png)
+
+Horarios:
+- GET /api/horarios/{labId}
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Horariosget.png)
+- PUT /api/horarios/{labId}
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Horariosput.png)
+
+Reservas:
+- GET /reservas 
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaget.png)
+- POST /reservas
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservapost.png)
+- PUT /reservas
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaput.png)
+- DELETE /reservas
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservadelete.png)
+- GET /reservas/generar
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservagenerar.png)
+- GET /reservas/estadisticas
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaestadisticas.png)
