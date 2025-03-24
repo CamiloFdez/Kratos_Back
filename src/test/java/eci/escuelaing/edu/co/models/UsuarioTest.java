@@ -11,7 +11,7 @@ public class UsuarioTest {
 
     @BeforeEach
     void setUp() {
-        usuario = new Usuario("1", "Juan Pérez", "juan@mail.escuelaing.edu.co", "contraseña123");
+        usuario = new Usuario("1", "Juan Pérez", "juan@mail.escuelaing.edu.co", "contraseña123", "ADMIN");
     }
 
     @Test

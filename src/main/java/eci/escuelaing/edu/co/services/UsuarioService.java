@@ -34,6 +34,7 @@ public class UsuarioService {
             usuario.setName(usuarioActualizado.getName());
             usuario.setEmail(usuarioActualizado.getEmail());
             usuario.setPassword(usuarioActualizado.getPassword());
+            usuario.setRol(usuarioActualizado.getRol());
             return usuarioRepository.save(usuario);
         }).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
