@@ -24,6 +24,10 @@ public class UsuarioService {
             throw new IllegalArgumentException("The email " + usuario.getEmail() +
                     " already exists");
         }
+
+        if (usuario.getRol() == null || (!usuario.getRol().equals("ADMIN") && !usuario.getRol().equals("PROFESOR"))) {
+            throw new IllegalArgumentException("Rol inválido");
+        }
         return usuarioRepository.save(usuario);
     }
 
@@ -32,6 +36,7 @@ public class UsuarioService {
             usuario.setName(usuarioActualizado.getName());
             usuario.setEmail(usuarioActualizado.getEmail());
             usuario.setPassword(usuarioActualizado.getPassword());
+            usuario.setRol(usuarioActualizado.getRol());
             return usuarioRepository.save(usuario);
         }).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
