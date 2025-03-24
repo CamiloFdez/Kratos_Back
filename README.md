@@ -181,6 +181,17 @@ Ahora procedemos a realizar las pruebas con los siguientes endPoints:
 2. Laboratorios:
 - GET /api/laboratorios
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Labsget.png)
+- GET /api/laboratorios/labId/horarios
+![image](https://github.com/user-attachments/assets/833fc885-27e4-465c-9209-d583d4007cf0)
+- PUT /api/laboratorios/{labId}/horarios
+![image](https://github.com/user-attachments/assets/d6a040c2-6fbc-4cc6-82c3-dc89da52d8ec)
+- DELETE /api/laboratorios/{labId}/horarios/{horarioId}
+![image](https://github.com/user-attachments/assets/5d824afb-0095-4529-a6e4-87bd0534db9d)
+- POST /api/laboratorios/{labId}/reservar
+![image](https://github.com/user-attachments/assets/c5b36bc6-49f9-482e-b6a0-1e94ef5d12b8)
+- POST /api/laboratorios/{labId}/cancelar
+![image](https://github.com/user-attachments/assets/9ab46a82-bc29-4fee-8dbc-9a21f8430482)
+
 
 3. Horarios:
 - GET /api/horarios/{labId}
