@@ -167,7 +167,8 @@ mvn test
 ## **Fotos con endPoints**
 Primero debemos tener Postman instalado en nuestros dispositivos y luego debemos tener el proyecto corriendo en nuestra maquina local.
 Ahora procedemos a realizar las pruebas con los siguientes endPoints:
-Usuarios:
+
+1. Usuarios:
 - GET /usuarios
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariosget.png)
 - POST /usuarios
@@ -177,17 +178,17 @@ Usuarios:
 - DELETE /usuarios
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Usuariosdelete.png)
 
-Laboratorios:
+2. Laboratorios:
 - GET /api/laboratorios
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Labsget.png)
 
-Horarios:
+3. Horarios:
 - GET /api/horarios/{labId}
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Horariosget.png)
 - PUT /api/horarios/{labId}
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Horariosput.png)
 
-Reservas:
+4. Reservas:
 - GET /reservas 
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaget.png)
 - POST /reservas
@@ -199,4 +200,4 @@ Reservas:
 - GET /reservas/generar
 ![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservagenerar.png)
 - GET /reservas/estadisticas
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaestadisticas.png)
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/Reservaestadistica.png)
