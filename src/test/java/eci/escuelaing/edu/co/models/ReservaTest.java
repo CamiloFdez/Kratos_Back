@@ -12,10 +12,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class ReservaTest {
 
     private Reserva reserva;
+    private Laboratorio laboratorioInicial;
+    private Laboratorio laboratorioNuevo;
 
     @BeforeEach
     void setUp() {
-        reserva = new Reserva("1", "user123", "Lab A",
+        laboratorioInicial = new Laboratorio("lab1", "Laboratorio A", "Ubicación 1", 30);
+        laboratorioNuevo = new Laboratorio("lab2", "Laboratorio B", "Ubicación 2", 50);
+        reserva = new Reserva("1", "user123", laboratorioInicial,
                 LocalDateTime.of(2025, 3, 10, 14, 30), "Investigación", 2);
     }
 
@@ -23,7 +27,7 @@ public class ReservaTest {
     void shouldCreateReservaCorrectly() {
         assertThat(reserva.getId()).isEqualTo("1");
         assertThat(reserva.getUsuarioId()).isEqualTo("user123");
-        assertThat(reserva.getLaboratorio()).isEqualTo("Lab A");
+        assertThat(reserva.getLaboratorio()).isEqualTo(laboratorioInicial);
         assertThat(reserva.getFechaHora()).isEqualTo(LocalDateTime.of(2025, 3, 10, 14, 30));
         assertThat(reserva.getProposito()).isEqualTo("Investigación");
         assertThat(reserva.getPrioridad()).isEqualTo(2);
@@ -33,14 +37,14 @@ public class ReservaTest {
     void shouldModifyReservaCorrectly() {
         reserva.setId("2");
         reserva.setUsuarioId("user456");
-        reserva.setLaboratorio("Lab B");
+        reserva.setLaboratorio(laboratorioNuevo);
         reserva.setFechaHora(LocalDateTime.of(2025, 5, 15, 10, 0));
         reserva.setProposito("Clase de MBDA");
         reserva.setPrioridad(4);
 
         assertThat(reserva.getId()).isEqualTo("2");
         assertThat(reserva.getUsuarioId()).isEqualTo("user456");
-        assertThat(reserva.getLaboratorio()).isEqualTo("Lab B");
+        assertThat(reserva.getLaboratorio()).isEqualTo(laboratorioNuevo);
         assertThat(reserva.getFechaHora()).isEqualTo(LocalDateTime.of(2025, 5, 15, 10, 0));
         assertThat(reserva.getProposito()).isEqualTo("Clase de MBDA");
         assertThat(reserva.getPrioridad()).isEqualTo(4);
