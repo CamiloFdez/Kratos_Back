@@ -19,6 +19,8 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public Optional<Usuario> ObtainUserByEmail(String email) { return usuarioRepository.findByEmail(email); }
+
     public Usuario CreateUser(Usuario usuario) {
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new IllegalArgumentException("The email " + usuario.getEmail() +
