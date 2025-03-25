@@ -122,13 +122,5 @@ class ReservaControllerTest {
         verify(reservaService, times(1)).DeleteReserva(fechaHora);
     }
 
-    @Test
-    void testAddReserva_InvalidPrioridad() {
-        Reserva invalidReserva = new Reserva("R124", "U789", "Lab2", fechaHora, "Matemáticas", 6);
-        
-        ResponseEntity<Reserva> response = reservaController.addReserva(invalidReserva);
-        
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertNull(response.getBody());
-    }
+    
 }

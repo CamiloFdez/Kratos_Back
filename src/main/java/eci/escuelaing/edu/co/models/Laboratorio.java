@@ -11,12 +11,21 @@ public class Laboratorio {
     private String nombre;
     private String ubicacion;
     private int capacidad;
+    private String tipo;  
 
     public Laboratorio(String id , String nombre, String ubicacion, int capacidad) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getId() {
