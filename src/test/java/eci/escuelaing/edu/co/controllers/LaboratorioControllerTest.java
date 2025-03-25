@@ -10,12 +10,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,8 +39,11 @@ class LaboratorioControllerTest {
     @BeforeEach
     void setUp() {
         laboratorio = new Laboratorio("Lab1", "Laboratorio de Computación", "Edificio A, Piso 2", 30);
+        laboratorio.setTipo("Computación"); // Asegúrate de definir el tipo
+
         horario = new Horario("Lab1", "Lunes", "08:30", "10:00", true);
     }
+
 
 
     @Test
@@ -103,8 +109,9 @@ class LaboratorioControllerTest {
 
         ResponseEntity<Void> response = laboratorioController.eliminarHorario("Lab1", "1");
 
-        assertEquals(204, response.getStatusCode().value());
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCode().value());
     }
+
 
     @Test
     void eliminarHorario_ShouldReturnNotFound() {

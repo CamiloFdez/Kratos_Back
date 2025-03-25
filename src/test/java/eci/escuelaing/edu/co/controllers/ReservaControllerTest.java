@@ -1,5 +1,6 @@
 package eci.escuelaing.edu.co.controllers;
 
+import eci.escuelaing.edu.co.models.Laboratorio;
 import eci.escuelaing.edu.co.models.Reserva;
 import eci.escuelaing.edu.co.services.ReservaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,8 @@ class ReservaControllerTest {
     @BeforeEach
     void setUp() {
         fechaHora = LocalDateTime.of(2025, 3, 7, 14, 0);
-        reserva = new Reserva("R123", "U456", "Lab1", fechaHora, "Programación Avanzada", 2);
+        Laboratorio laboratorio = new Laboratorio("L001", "Lab1", "Edificio A", 30);
+        reserva = new Reserva("R123", "U456", laboratorio, fechaHora, "Programación Avanzada", 2);
     }
 
 

@@ -18,6 +18,7 @@ public class Laboratorio {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
+        this.tipo = "General";
     }
 
     public String getTipo() {

@@ -49,6 +49,13 @@ public class ReservaService {
     }
 
     public void DeleteReserva(LocalDateTime fechaHora) {
-        reservaRepository.deleteById(fechaHora);
+        Optional<Reserva> reservaOptional = reservaRepository.findByIdFechaHora(fechaHora);
+    
+        if (reservaOptional.isPresent()) {
+            reservaRepository.delete(reservaOptional.get());
+        } else {
+            throw new IllegalArgumentException("Reserva no encontrada para la fecha y hora: " + fechaHora);
+        }
     }
+    
 }

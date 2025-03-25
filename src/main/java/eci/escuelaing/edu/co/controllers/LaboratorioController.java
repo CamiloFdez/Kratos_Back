@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/laboratorios")
@@ -18,7 +17,6 @@ public class LaboratorioController {
 
     private final LaboratorioService laboratorioService;
     private final HorarioService horarioService;
-    private static final Pattern LAB_ID_PATTERN = Pattern.compile("LABSIS-[0-9]{3}");
 
     @Autowired
     public LaboratorioController(LaboratorioService laboratorioService, HorarioService horarioService) {
@@ -26,117 +24,61 @@ public class LaboratorioController {
         this.horarioService = horarioService;
     }
 
-    // Obtener todos los laboratorios de sistemas con formato válido
+    // Endpoint para obtener todos los laboratorios
     @GetMapping("/")
     public ResponseEntity<List<Laboratorio>> obtenerLaboratorios() {
-        List<Laboratorio> laboratorios = laboratorioService.getAllLaboratorios()
-                .stream()
-                .filter(lab -> lab.getTipo().equalsIgnoreCase("sistemas") && 
-                              LAB_ID_PATTERN.matcher(lab.getId()).matches())
-                .toList();
-        
-        return laboratorios.isEmpty() ? 
-               ResponseEntity.noContent().build() : 
-               ResponseEntity.ok(laboratorios);
+        List<Laboratorio> laboratorios = laboratorioService.getAllLaboratorios();
+        if (laboratorios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(laboratorios);
     }
 
-    // Obtener horarios disponibles de un laboratorio específico
+    // Endpoint para obtener los horarios disponibles de un laboratorio
     @GetMapping("/{labId}/horarios")
     public ResponseEntity<List<Horario>> obtenerHorariosDisponibles(@PathVariable String labId) {
-        if (!esLaboratorioValido(labId)) {
-            return ResponseEntity.badRequest().build();
+        List<Horario> horarios = horarioService.getHorariosByLabId(labId);
+        if (horarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
-        
-        List<Horario> horarios = horarioService.getHorariosByLabId(labId)
-                .stream()
-                .filter(Horario::isDisponible)
-                .toList();
-                
-        return horarios.isEmpty() ? 
-               ResponseEntity.noContent().build() : 
-               ResponseEntity.ok(horarios);
+        return ResponseEntity.ok(horarios);
     }
 
-    // Actualizar un horario específico
+    // Endpoint para realizar una actualización de un horario
     @PutMapping("/{labId}/horarios")
-    public ResponseEntity<Horario> actualizarHorario(
-            @PathVariable String labId, 
-            @RequestBody Horario horario) {
-        
-        if (!esLaboratorioValido(labId) || !labId.equals(horario.getLabId())) {
-            return ResponseEntity.badRequest().build();
-        }
-        
+    public ResponseEntity<Horario> actualizarHorario(@PathVariable String labId, @RequestBody Horario horario) {
         try {
             Horario horarioActualizado = horarioService.updateHorario(labId, horario);
             return ResponseEntity.ok(horarioActualizado);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(null);  // Si no se encuentra el horario o el laboratorio
         }
     }
 
-    // Eliminar un horario específico
+    // Endpoint para eliminar un horario de un laboratorio
     @DeleteMapping("/{labId}/horarios/{horarioId}")
-    public ResponseEntity<Void> eliminarHorario(
-            @PathVariable String labId, 
-            @PathVariable String horarioId) {
-        
-        if (!esLaboratorioValido(labId)) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<Void> eliminarHorario(@PathVariable String labId, @PathVariable String horarioId) {
+        try {
+            horarioService.deleteHorario(horarioId);
+            return ResponseEntity.noContent().build();  // Responde con un 204 No Content
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).build();  // Si no se encuentra el horario o el laboratorio
         }
-        
-        Optional<Horario> horario = horarioService.getHorarioById(horarioId);
-        if (horario.isEmpty() || !horario.get().getLabId().equals(labId)) {
-            return ResponseEntity.notFound().build();
-        }
-        
-        horarioService.deleteHorario(horarioId);
-        return ResponseEntity.noContent().build();
     }
 
-    // Reservar un laboratorio
+    // Endpoint para reservar un laboratorio (aquí solo actualizaríamos el estado de disponibilidad del horario)
     @PostMapping("/{labId}/reservar")
-    public ResponseEntity<Horario> reservarLaboratorio(
-            @PathVariable String labId, 
-            @RequestBody Horario horario) {
-        
-        if (!esLaboratorioValido(labId) || !labId.equals(horario.getLabId())) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        if (!horario.isDisponible()) {
-            return ResponseEntity.badRequest().body(null);
-        }
-        
+    public ResponseEntity<Horario> reservarLaboratorio(@PathVariable String labId, @RequestBody Horario horario) {
+        // Actualizamos la disponibilidad del horario a false (reservado)
         Horario horarioReservado = horarioService.actualizarDisponibilidad(horario, false);
         return ResponseEntity.ok(horarioReservado);
     }
 
-    // Cancelar una reserva
+    // Endpoint para cancelar una reserva de un laboratorio
     @PostMapping("/{labId}/cancelar")
-    public ResponseEntity<Horario> cancelarReserva(
-            @PathVariable String labId, 
-            @RequestBody Horario horario) {
-        
-        if (!esLaboratorioValido(labId) || !labId.equals(horario.getLabId())) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        if (horario.isDisponible()) {
-            return ResponseEntity.badRequest().body(null);
-        }
-        
+    public ResponseEntity<Horario> cancelarReserva(@PathVariable String labId, @RequestBody Horario horario) {
+        // Actualizamos la disponibilidad del horario a true (liberado)
         Horario horarioCancelado = horarioService.actualizarDisponibilidad(horario, true);
         return ResponseEntity.ok(horarioCancelado);
-    }
-
-    // Método de validación mejorado
-    private boolean esLaboratorioValido(String labId) {
-        if (!LAB_ID_PATTERN.matcher(labId).matches()) {
-            return false;
-        }
-        
-        Optional<Laboratorio> lab = laboratorioService.getLaboratorioById(labId);
-        return lab.isPresent() && lab.get().getTipo().equalsIgnoreCase("sistemas");
     }
 }
