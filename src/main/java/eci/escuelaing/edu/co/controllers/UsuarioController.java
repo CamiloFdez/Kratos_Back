@@ -72,7 +72,6 @@ public class UsuarioController {
             response.put("email", usuarioExistente.get().getEmail());
             response.put("nombre", usuarioExistente.get().getName());
             response.put("rol", usuarioExistente.get().getRol());
-
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

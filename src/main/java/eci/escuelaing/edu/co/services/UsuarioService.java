@@ -27,7 +27,9 @@ public class UsuarioService {
                     " already exists");
         }
 
-        if (usuario.getRol() == null || (!usuario.getRol().equals("ADMIN") && !usuario.getRol().equals("PROFESOR"))) {
+        if (usuario.getRol() == null || usuario.getRol().isEmpty()) {
+            usuario.setRol("PROFESOR");
+        } else if (!usuario.getRol().equals("ADMIN") && !usuario.getRol().equals("PROFESOR")) {
             throw new IllegalArgumentException("Rol inválido");
         }
         return usuarioRepository.save(usuario);
