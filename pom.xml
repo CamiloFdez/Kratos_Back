@@ -28,13 +28,13 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <sonar.projectKey>library</sonar.projectKey>
-        <sonar.projectName>library</sonar.projectName>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.coverage.exclusions>src//configurators/*</sonar.coverage.exclusions>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<sonar.projectKey>ProyectoCVDS</sonar.projectKey>
+		<sonar.projectName>ProyectCVDS</sonar.projectName>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.coverage.exclusions>**/configurators/**,**/ProyectoCvdsApplication.java,**/eci/escuelaing/edu/co/controllers/**,**/eci/escuelaing/edu/co/repositories/**</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
