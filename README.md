@@ -30,11 +30,11 @@ Para la ejecucion del proyecto necesitamos :
 ---
 ### Diagrama de Clases
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/mainclases.png )
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/clases.png )
 
 ### Diagrama de Componentes
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/maincomponentes.png)
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/componentes.png)
 
 ## **Configuracion**
 
