@@ -13,14 +13,14 @@ public class Reserva {
     private String id;
 
     private String usuarioId;
-    private String laboratorio; // Implementar clase 'laboratorio'
+    private Laboratorio laboratorio;
 
     @Field
     private LocalDateTime fechaHora;
     private String proposito;
-    private int prioridad; // Campo de prioridad
+    private int prioridad;
 
-    public Reserva(String id, String usuarioId, String laboratorio, LocalDateTime fechaHora, String proposito, int prioridad) {
+    public Reserva(String id, String usuarioId, Laboratorio laboratorio, LocalDateTime fechaHora, String proposito, int prioridad) {
         this.id = id;
         this.usuarioId = usuarioId;
         this.laboratorio = laboratorio;
@@ -29,6 +29,8 @@ public class Reserva {
         setPrioridad(prioridad);
     }
 
+    public Reserva() {} // Constructor vacio para las reservas aleatorias
+
     // Getters y setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -36,8 +38,10 @@ public class Reserva {
     public String getUsuarioId() { return usuarioId; }
     public void setUsuarioId(String usuarioId) { this.usuarioId = usuarioId; }
 
-    public String getLaboratorio() { return laboratorio; }
-    public void setLaboratorio(String laboratorio) { this.laboratorio = laboratorio; }
+    public Laboratorio getLaboratorio() { return laboratorio; }
+    public void setLaboratorio(Laboratorio laboratorio) { this.laboratorio = laboratorio; }
+
+
 
     public LocalDateTime getFechaHora() { return fechaHora; }
     public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }

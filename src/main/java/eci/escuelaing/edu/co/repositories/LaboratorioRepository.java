@@ -6,5 +6,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;  // Para int
 
 public interface LaboratorioRepository extends MongoRepository<Laboratorio, String> {
 
-
 }

@@ -44,6 +44,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Generar Reporte de Serenity
+        run: mvn serenity:aggregate
+
       - name: Ejecutar pruebas
         run: mvn verify
         
@@ -52,9 +55,7 @@ jobs:
         if: success() || failure()
         with:
           name: SpringBoot Report               # Name of the folder
-          path: target/site/           # Path to test results
-      - name: Generar Reporte de Serenity
-        run: mvn serenity:aggregate
+          path: target/site/serenity           # Path to test results
 
 
 

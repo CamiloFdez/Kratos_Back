@@ -30,8 +30,8 @@ public class UsuarioServiceTest {
     @Test
     void shouldReturnAllUsers() {
         // Arrange
-        Usuario user1 = new Usuario("1", "Juan", "juan@mail.com", "1234");
-        Usuario user2 = new Usuario("2", "Maria", "maria@mail.com", "5678");
+        Usuario user1 = new Usuario("1", "Juan", "juan@mail.com", "1234", "ADMIN");
+        Usuario user2 = new Usuario("2", "Maria", "maria@mail.com", "5678", "ADMIN");
         when(usuarioRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
         // Act
@@ -45,7 +45,7 @@ public class UsuarioServiceTest {
     @Test
     void shouldReturnUserById() {
         // Arrange
-        Usuario user = new Usuario("1", "Juan", "juan@mail.com", "1234");
+        Usuario user = new Usuario("1", "Juan", "juan@mail.com", "1234", "ADMIN");
         when(usuarioRepository.findById("1")).thenReturn(Optional.of(user));
 
         // Act
@@ -60,7 +60,7 @@ public class UsuarioServiceTest {
     @Test
     void shouldCreateUser() {
         // Arrange
-        Usuario user = new Usuario("1", "Pedro", "pedro@mail.com", "abcd");
+        Usuario user = new Usuario("1", "Pedro", "pedro@mail.com", "abcd", "ADMIN");
         when(usuarioRepository.findByEmail("pedro@mail.com")).thenReturn(Optional.empty());
         when(usuarioRepository.save(user)).thenReturn(user);
 
@@ -77,7 +77,7 @@ public class UsuarioServiceTest {
     @Test
     void shouldThrowExceptionWhenEmailExists() {
         // Arrange
-        Usuario user = new Usuario("1", "Ana", "ana@mail.com", "1234");
+        Usuario user = new Usuario("1", "Ana", "ana@mail.com", "1234", "ADMIN");
         when(usuarioRepository.findByEmail("ana@mail.com")).thenReturn(Optional.of(user));
 
         // Act & Assert
@@ -99,8 +99,8 @@ public class UsuarioServiceTest {
     @Test
     void shouldUpdateUserSuccessfully() {
         String userId = "user1";
-        Usuario existingUser = new Usuario(userId, "John Duran", "john@mail.escuelaing.edu.co", "1234");
-        Usuario updatedUser = new Usuario(userId, "John Smith", "johnsmith@mail.escuelaing.edu.co", "abcd");
+        Usuario existingUser = new Usuario(userId, "John Duran", "john@mail.escuelaing.edu.co", "1234", "ADMIN");
+        Usuario updatedUser = new Usuario(userId, "John Smith", "johnsmith@mail.escuelaing.edu.co", "abcd", "ADMIN");
 
         when(usuarioRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(usuarioRepository.save(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));

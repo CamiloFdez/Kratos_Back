@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/laboratorios")
+@CrossOrigin(origins = "*")
 public class LaboratorioController {
 
     private final LaboratorioService laboratorioService;
@@ -69,7 +70,7 @@ public class LaboratorioController {
     // Endpoint para reservar un laboratorio (aquí solo actualizaríamos el estado de disponibilidad del horario)
     @PostMapping("/{labId}/reservar")
     public ResponseEntity<Horario> reservarLaboratorio(@PathVariable String labId, @RequestBody Horario horario) {
-        // Actualizamos la disponibilidad del horario a false (reservado)
+        // Actualizamos la disponibilidad del horario a falso (reservado)
         Horario horarioReservado = horarioService.actualizarDisponibilidad(horario, false);
         return ResponseEntity.ok(horarioReservado);
     }
