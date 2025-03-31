@@ -30,11 +30,11 @@ Para la ejecucion del proyecto necesitamos :
 ---
 ### Diagrama de Clases
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/clases.png )
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/clases.png )
 
 ### Diagrama de Componentes
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/componentes.png)
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/componentes.png)
 
 ## **Configuracion**
 
@@ -44,7 +44,7 @@ Para la ejecucion del proyecto necesitamos :
 git clone https://github.com/CamiloFdez/Kratos_Back.git
 cd https://github.com/CamiloFdez/Kratos_Back.git
 ```
-- Instalamos las dependencias usando en la terminal  :
+- Instalamos las dependencias usando en la terminal:
 ```text
 ./mvn clean Install
 ```
