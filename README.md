@@ -84,7 +84,7 @@ Para ejecutar la aplicacion con maven desde la terminal :
 ./mvnw spring-boot:run
 
 ```
-Desde el IDE ejecutamos la clase **ProyectoCvdsApplication** .
+Desde el IDE ejecutamos la clase **ProyectoCvdsApplication** 
 
 ---
 
