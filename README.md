@@ -30,7 +30,7 @@ Para la ejecucion del proyecto necesitamos :
 ---
 ### Diagrama de Clases
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/clases.png )
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/main/assets/clases.png)
 
 ### Diagrama de Componentes
 
