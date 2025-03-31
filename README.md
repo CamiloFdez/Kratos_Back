@@ -22,33 +22,31 @@ Para la ejecucion del proyecto necesitamos :
 - **Doker** 
 - **Sonar**
 - **AzureDevOps**
-- **MongoDB** instalado y en ejecución.
+- **MongoDB Atlas**
 - **Maven** con **JaCoco**(Plugin Covertura) y **Mokito**(Dependencia)
 - Un IDE como **IntelliJ IDEA**, **Eclipse** o **VS Code** (En nuestro caso IntelliJ IDEA).
 ---
+### Diagrama de Clases
+
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/clases.png )
+
+### Diagrama de Componentes
+
+![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/componentes.png)
+
 ## **Configuracion**
 
-Inicialmente se creo un proyecto nuevo con la ayuda de **Spring Initializr** de la siguiente forma:
+- Se clona este repositorio:
 
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/SpringInitializr.png )
-
-Luego configuramos la base de datos creando una cuenta en **Mongo Atlas** y creando una base de datos:
-
-![imagen](https://github.com/CamiloFdez/Kratos_Back/blob/00457606c63bdb7529390a6f99fc6033661faaad/assets/MongoAtlas.png)
-
-Conectamos la base de datos con la aplicacion agragando la URI en las **application.properties** de nuestra aplicacion :
-
-```Spring
-spring.data.mongodb.uri=mongodb+srv://rogerrodriguez:Ro187ro.@proyectocvds.g9f0x.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=proyectoCVDS&ssl=true
+```text
+git clone https://github.com/CamiloFdez/Kratos_Back.git
+cd https://github.com/CamiloFdez/Kratos_Back.git
 ```
-Instalamos las dependencias usando en la terminal  :
-
+- Instalamos las dependencias usando en la terminal  :
 ```text
 ./mvn clean Install
 ```
-
 ---
-
 ## **Estructura del proyecto**
 
 El proyecto esta organizado de la siguiente manera:
